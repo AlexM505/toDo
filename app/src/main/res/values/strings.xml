@@ -6,6 +6,11 @@
 
     <string name="titulo">Titulo</string>
     <string name="descripcion">Descripcion</string>
+    <string name="buscar">Buscar</string>
+    <string name="ordenar_por">Ordenar por</string>
+    <string name="prioridad_alta">Prioridad alta</string>
+    <string name="prioridad_baja">Prioridad baja</string>
+    <string name="eliminar_todo">Eliminar todo</string>
 
     <string-array name="priorities">
         <item>Prioridad Alta</item>
