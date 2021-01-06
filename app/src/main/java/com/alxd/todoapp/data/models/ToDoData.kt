@@ -1,4 +1,4 @@
-package com.alxd.todoapp.data
+package com.alxd.todoapp.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

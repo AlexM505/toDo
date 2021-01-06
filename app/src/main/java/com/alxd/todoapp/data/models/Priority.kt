@@ -1,4 +1,4 @@
-package com.alxd.todoapp.data
+package com.alxd.todoapp.data.models
 
 enum class Priority {
     HIGH,
