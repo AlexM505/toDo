@@ -11,6 +11,7 @@
     <string name="prioridad_alta">Prioridad alta</string>
     <string name="prioridad_baja">Prioridad baja</string>
     <string name="eliminar_todo">Eliminar todo</string>
+    <string name="agregar">agregar</string>
 
     <string-array name="priorities">
         <item>Prioridad Alta</item>
