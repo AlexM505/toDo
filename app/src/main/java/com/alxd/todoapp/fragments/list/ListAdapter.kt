@@ -9,7 +9,6 @@ import com.alxd.todoapp.R
 import com.alxd.todoapp.data.models.Priority
 import com.alxd.todoapp.data.models.ToDoData
 import kotlinx.android.synthetic.main.row_layout.view.*
-import java.util.zip.Inflater
 
 class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
