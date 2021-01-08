@@ -11,11 +11,14 @@ import com.alxd.todoapp.R
 import com.alxd.todoapp.data.models.Priority
 import com.alxd.todoapp.data.models.ToDoData
 import com.alxd.todoapp.data.viewmodel.ToDoViewModel
+import com.alxd.todoapp.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mSharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +29,8 @@ class AddFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add, container, false)
 
         setHasOptionsMenu(true)
+
+        view.spinnerPriorities.onItemSelectedListener = mSharedViewModel.listener
 
         return view
     }
@@ -47,13 +52,13 @@ class AddFragment : Fragment() {
         val mPriority =  spinnerPriorities.selectedItem.toString()
         val mDescription = etDescription.text.toString()
 
-        val validation = verifyDataFromUser(mTitle, mDescription)
+        val validation = mSharedViewModel.verifyDataFromUser(mTitle, mDescription)
         if(validation){
             //Insertar a base de datos
             val newToDo = ToDoData(
                     0,
                     mTitle,
-                    parsePriority(mPriority),
+                    mSharedViewModel.parsePriority(mPriority),
                     mDescription
             )
 
@@ -67,18 +72,5 @@ class AddFragment : Fragment() {
 
     }
 
-    private fun verifyDataFromUser(title:String, desc:String): Boolean{
-        return if(TextUtils.isEmpty(title) || TextUtils.isEmpty(desc)){
-            false
-        }else !(title.isEmpty() || desc.isEmpty())
-    }
 
-    private fun parsePriority(priority: String):Priority{
-        return when(priority){
-            "Prioridad Alta" -> {Priority.HIGH}
-            "Prioridad Media" -> {Priority.MEDIUM}
-            "Prioridad Baja" -> {Priority.LOW}
-            else -> Priority.LOW
-        }
-    }
 }
