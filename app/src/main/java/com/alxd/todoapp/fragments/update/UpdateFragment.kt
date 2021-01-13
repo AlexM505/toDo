@@ -1,5 +1,6 @@
 package com.alxd.todoapp.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -45,8 +46,9 @@ class UpdateFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if(item.itemId == R.id.menu_save){
-            updateItem()
+        when(item.itemId){
+            R.id.menu_save -> updateItem()
+            R.id.menu_delete -> confirmItemRemoval()
         }
 
         return super.onOptionsItemSelected(item)
@@ -74,6 +76,19 @@ class UpdateFragment : Fragment() {
         }else{
             Toast.makeText(requireContext(), "Por favor ingrese texto en todos los campos", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun confirmItemRemoval() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Si"){_,_ ->
+            mToDoViewModel.deleteItem(args.currentItem)
+            Toast.makeText(requireContext(), "'${args.currentItem.title}' Ha sido removido satisfactoriamente!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+        builder.setNegativeButton("No"){_,_ ->}
+        builder.setTitle("Eliminar '${args.currentItem.title}'")
+        builder.setMessage("Estas seguro que quieres remover '${args.currentItem.title}'?")
+        builder.create().show()
     }
 
 }
