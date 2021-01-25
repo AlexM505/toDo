@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alxd.todoapp.R
+import com.alxd.todoapp.data.models.ToDoData
 import com.alxd.todoapp.data.viewmodel.ToDoViewModel
 import com.alxd.todoapp.databinding.FragmentListBinding
 import com.alxd.todoapp.fragments.SharedViewModel
 import com.alxd.todoapp.fragments.list.adapter.ListAdapter
+import com.google.android.material.snackbar.Snackbar
 
 class ListFragment : Fragment() {
 
@@ -72,11 +74,24 @@ class ListFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
                 mToDoViewModel.deleteItem(itemToDelete)
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
                 Toast.makeText(requireContext(), "Se ha eliminado: '${itemToDelete.title}'", Toast.LENGTH_SHORT).show()
+
+                //Restaurar el item eliminado
+                restoreDeletedData(viewHolder.itemView, itemToDelete, viewHolder.adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restoreDeletedData(view: View, deletedItem: ToDoData, position: Int){
+        val snackbar = Snackbar.make(view, "'${deletedItem.title}' eliminado!",Snackbar.LENGTH_LONG)
+        snackbar.setAction("Deshacer"){
+            mToDoViewModel.insertData(deletedItem)
+            adapter.notifyDataSetChanged()
+        }
+        snackbar.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
