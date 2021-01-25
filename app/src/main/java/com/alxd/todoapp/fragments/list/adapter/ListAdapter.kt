@@ -1,20 +1,14 @@
-package com.alxd.todoapp.fragments.list
+package com.alxd.todoapp.fragments.list.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.alxd.todoapp.R
-import com.alxd.todoapp.data.models.Priority
 import com.alxd.todoapp.data.models.ToDoData
 import com.alxd.todoapp.databinding.RowLayoutBinding
-import kotlinx.android.synthetic.main.row_layout.view.*
 
 class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
-    private var dataList = emptyList<ToDoData>()
+    var dataList = emptyList<ToDoData>()
 
 //    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){}
     class MyViewHolder(private val binding: RowLayoutBinding): RecyclerView.ViewHolder(binding.root){
@@ -25,7 +19,7 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         }
 
         companion object{
-            fun from(parent: ViewGroup): MyViewHolder{
+            fun from(parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = RowLayoutBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
