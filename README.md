@@ -23,4 +23,4 @@
 
 ### Diseño de la app
 
-<img src="screenshot/todo.jpg" alt=""> 
+<img src="screenshot/todo.jpg" alt="" width="200" height="600"> 
