@@ -15,6 +15,7 @@ import com.alxd.todoapp.data.viewmodel.ToDoViewModel
 import com.alxd.todoapp.databinding.FragmentListBinding
 import com.alxd.todoapp.fragments.SharedViewModel
 import com.alxd.todoapp.fragments.list.adapter.ListAdapter
+import com.alxd.todoapp.utils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
@@ -58,6 +59,9 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         //Set Menu
         setHasOptionsMenu(true)
+
+        //cerrar teclado abiertos de los fragments
+        hideKeyboard(requireActivity())
 
         return binding.root //view
     }
