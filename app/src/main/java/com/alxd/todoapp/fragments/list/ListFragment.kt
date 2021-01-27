@@ -80,21 +80,21 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                 val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
                 mToDoViewModel.deleteItem(itemToDelete)
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
-                Toast.makeText(requireContext(), "Se ha eliminado: '${itemToDelete.title}'", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Se ha eliminado: '${itemToDelete.title}'", Toast.LENGTH_SHORT).show()
 
                 //Restaurar el item eliminado
-                restoreDeletedData(viewHolder.itemView, itemToDelete, viewHolder.adapterPosition)
+                restoreDeletedData(viewHolder.itemView, itemToDelete)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
-    private fun restoreDeletedData(view: View, deletedItem: ToDoData, position: Int){
+    private fun restoreDeletedData(view: View, deletedItem: ToDoData){
         val snackbar = Snackbar.make(view, "'${deletedItem.title}' eliminado!",Snackbar.LENGTH_LONG)
         snackbar.setAction("Deshacer"){
             mToDoViewModel.insertData(deletedItem)
-            adapter.notifyDataSetChanged()
+            //adapter.notifyDataSetChanged()
         }
         snackbar.show()
     }
